@@ -1,9 +1,10 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        //brute
+        /*brute but using o(n) extra space and o(n) tc
+        //hashing
         ios_base::sync_with_stdio(0);
-cin.tie(0);cout.tie(0);
+        cin.tie(0);cout.tie(0);
         map<int,int>mp;
         int n = nums.size();
         int ans=0;
@@ -14,5 +15,9 @@ cin.tie(0);cout.tie(0);
             }
         }
         return ans;
+        */
+        // sorting
+        sort(nums.begin(),nums.end());
+        return nums[nums.size()/2];
     }
 };
