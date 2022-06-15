@@ -77,6 +77,7 @@ public:
           2D MATRIX ITSELF
         SC: O(M*N) BECAUSE WE ARE CALCULATING AND STORING THE VALUES IN 2D MATRIX
      */
+    /* DP SPACE OPTIMIZATION USING A SINGLE ARRAY 
     int uniquePaths(int m, int n){
         ios_base::sync_with_stdio(0);
         cin.tie(0);cout.tie(0);
@@ -87,5 +88,17 @@ public:
             }
         }
         return dp[n-1];
+    }
+    */
+    int uniquePaths(int m, int n){
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
+        int N = m+n-2;
+        int r = min(n-1,m-1);
+        double ans = 1;
+        for(int i = 1 ; i <= r ; i++){
+            ans = ans * (N-r+i)/i;
+        }
+        return (int)ans; // typecasting double to integer as the function returns int
     }
 };
