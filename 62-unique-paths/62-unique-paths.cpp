@@ -1,3 +1,5 @@
+//hint: https://leetcode.com/problems/unique-paths/discuss/1581998/C%2B%2BPython-5-Simple-Solutions-w-Explanation-or-Optimization-from-Brute-Force-to-DP-to-Math
+// video: https://www.youtube.com/watch?v=t_f0nwwdg5o
 class Solution {
 public:
     // BRUTE FORCE USING RECURSION
