@@ -58,6 +58,7 @@ public:
         */
     //DP APPROACH : ab mai upar se chalte hue niche jaunga or mera answer obviously array ke sabse
                  // last index pe stored hoga
+    // now at (i,j) there will be the number of unique paths one can take to reach (i,j) from (0,0)
     int uniquePaths(int m, int n){
         ios_base::sync_with_stdio(0);
         cin.tie(0);cout.tie(0);
@@ -70,4 +71,10 @@ public:
         }
         return dp[m-1][n-1];
     }
+   /* TC: O(M*N) BECAUSE WE ARE CALCULATING AND STORING THE VALUES IN 2D MATRIX WE ARE DOING 
+          RECURSIVE CALLS BUT WE ARE CHECKING IF A VALUE IS ALREADY THERE FOR THE SPECIFIC VALUES OR 
+          NOT AND THAT VALUE WE ARE LOOKING IN THE 2D MATRIX ITSELF SO IT IS LIKE WE ARE MOVING IN A 
+          2D MATRIX ITSELF
+        SC: O(M*N) BECAUSE WE ARE CALCULATING AND STORING THE VALUES IN 2D MATRIX
+     */   
 };
