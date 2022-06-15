@@ -56,7 +56,7 @@ public:
           2D MATRIX ITSELF
         SC: O(M*N) BECAUSE WE ARE CALCULATING AND STORING THE VALUES IN 2D MATRIX
         */
-    //DP APPROACH : ab mai upar se chalte hue niche jaunga or mera answer obviously array ke sabse
+    /*DP APPROACH : ab mai upar se chalte hue niche jaunga or mera answer obviously array ke sabse
                  // last index pe stored hoga
     // now at (i,j) there will be the number of unique paths one can take to reach (i,j) from (0,0)
     int uniquePaths(int m, int n){
@@ -76,5 +76,16 @@ public:
           NOT AND THAT VALUE WE ARE LOOKING IN THE 2D MATRIX ITSELF SO IT IS LIKE WE ARE MOVING IN A 
           2D MATRIX ITSELF
         SC: O(M*N) BECAUSE WE ARE CALCULATING AND STORING THE VALUES IN 2D MATRIX
-     */   
+     */
+    int uniquePaths(int m, int n){
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
+        vector<int> dp(n,1);
+        for(int i = 1 ; i < m ; i++){
+            for(int j = 1 ; j < n ; j++){
+                dp[j] = dp[j]+dp[j-1];
+            }
+        }
+        return dp[n-1];
+    }
 };
