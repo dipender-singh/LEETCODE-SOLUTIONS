@@ -16,40 +16,7 @@ public:
         }
         copy(s.begin(), s.end(), inserter(ans, ans.begin()));
         return ans; */
-         /* ios_base::sync_with_stdio(0);
-          cin.tie(0);cout.tie(0);
-        vector<int> ans=nums;
-         //using two poiner and sorting
-        sort(nums.begin(),nums.end());
-        int l = 0, h = nums.size()-1,n1=0,n2=0;
-    vector<int> anss;    
-        while(l<h){
-            if(ans[l]+ans[h] == target){ // ab yahan pe kya hai meri array sorted hai toh original
-                                           // index nahi milenge mujhe yahan pe toh in values ko store
-                                           // karke unhe phir dobara original array mein search karein
-                n1=ans[l];
-                n2=ans[h];
-                break;
-            }
-            if((ans[l]+ans[h]) > target){
-                h--;
-            }
-            else if((ans[l]+ans[h]) < target){
-                l++;
-            }
-        }
-        for(int i = 0 ; i < ans.size() ; i++){
-            if(ans[i]==n1){
-                n1=i;
-                anss.push_back(n1);
-            }
-            else if(ans[i] == n2){
-                n2=i;
-                anss.push_back(n2);
-            }
-        }
-        return anss;
-    }*/
+         /* Using Two Pointer 
     vector<int> twoSum(vector<int>& nums, int target) {
         ios_base::sync_with_stdio(0);
         cin.tie(0);cout.tie(0);
@@ -86,5 +53,25 @@ public:
 
     	    return res;
 	}
-        
+        */
+    // using hashing
+     vector<int> twoSum(vector<int>& nums, int target) {
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
+        map<int,int> mp;
+         vector<int> res;
+  for (int i = 0; i < nums.size(); ++i) {
+
+   	 if (mp.find(target - nums[i]) != mp.end()) {
+
+   		 res.emplace_back(i);
+   		 res.emplace_back(mp[target - nums[i]]);
+   		 return res;
+   	 }
+
+   	 mp[nums[i]] = i;
+    }
+
+    return res;
+     }
 };
