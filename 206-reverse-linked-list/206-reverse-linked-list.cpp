@@ -13,8 +13,7 @@ public:
     ListNode* reverseList(ListNode* head) {
         ios_base::sync_with_stdio(0);
         cin.tie(0);cout.tie(0);
-        // Can be Solved in TWO ways :- Iteratively and Recursively
-        //Iteratively
+        /*Iteratively
         if(head==NULL || head->next==NULL){ // if the list has one or no nodes at all
             return head;
         }
@@ -38,5 +37,24 @@ public:
         c->next=p;
         t->next=c;
         return t;
+        //Recursively
+        //Base Condition // Small Calculation //Recursive Call
+        if(head->next==NULL || head==NULL){
+            return head;
+        }
+        */
+        //Base Condition
+        if(head==NULL || head->next==NULL){ // if the list has one or no nodes at all
+            return head;
+        }
+        //Recursive Call
+        ListNode* temp = reverseList(head->next);
+        //Small Calculation
+        //Now we can say that the previous L.L. is reversed and now my head element is pointing to thr 
+        //last element of the reversed L.L so we just have to do this:-
+        head->next->next=head;
+        head->next=NULL;
+        return temp;
+
     }
 };
