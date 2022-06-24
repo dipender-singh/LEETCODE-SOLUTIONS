@@ -13,7 +13,7 @@ public:
     ListNode* middleNode(ListNode* head) {
         ios_base::sync_with_stdio(0);
         cin.tie(0);cout.tie(0);
-        //BRUTE FORCE 
+        /*BRUTE FORCE 
         ListNode* temp = head;
         int count=0;
         while(temp!=NULL){ // O(n)
@@ -41,5 +41,15 @@ public:
                 ans++;
             }
         return t;
+        */
+        //SLOW AND FAST POINTER 
+        //Slow Pointer will move One Position and Fast Pointer will move Two Positions
+        ListNode* s =head;
+        ListNode* f =head;
+        while(f!=NULL and f->next!=NULL){
+            s=s->next;
+            f=f->next->next;
+        }
+        return s;
   }
 };
