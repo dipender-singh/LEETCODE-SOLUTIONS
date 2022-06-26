@@ -13,19 +13,20 @@ public:
         ios_base::sync_with_stdio(0);
         cin.tie(0);cout.tie(0);
         unordered_map<ListNode* , int>mp;
-          ListNode *temp = NULL;
-        while(headA!=NULL){
+        ListNode *temp = NULL;
+        while(headA!=NULL){ //O(M)
             mp[headA]++;
             headA=headA->next;
         }
-        while(headB!=NULL){
+        while(headB!=NULL){ //O(N) FOR THE WORST CASE
             if(mp[headB]==1){
                 temp = headB;
                 break;
             }
-            mp[headB]++;
+           // mp[headB]++;
             headB=headB->next;
         }
         return temp;
     }
+    // TC:- O(M)
 };
