@@ -33,6 +33,7 @@ public:
     // O(min(M,N)) for this first we will have to find the list1 and list2 length then out of both 
     // which is minimum that size can be used to create a map
     */
+    /* OPTIMAL APPROACH
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB){
         ios_base::sync_with_stdio(0);
         cin.tie(0);cout.tie(0);
@@ -40,12 +41,12 @@ public:
         ListNode* b = headB;
         ListNode* temp = NULL;
         int as = 0 , bs = 0;
-      /*USING THE DIFFERENCE BETWEEN THE LENGTH'S
+        USING THE DIFFERENCE BETWEEN THE LENGTH'S
         Step 1-> Find the length of both Linked-Lists and take their difference 'd'
         Step 2-> Move the larger node forward by 'd' steps
         Step 3-> Now the starting point of both linkedlists are equidistant from intersection ,so move 
         both pointers together untill the intersection is found.
-        TC->O(m+n) , SC->O(1)*/
+        TC->O(m+n) , SC->O(1)
         while(a!=NULL){
             as++;
             a=a->next;
@@ -79,5 +80,28 @@ public:
             return a;
         }
         return temp;
+    }
+    */
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB){
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
+        /* USING TWO POINTER*/
+        ListNode* a = headA;
+        ListNode* b = headB;
+        while(a!=b){
+            if(a==NULL){
+                a=headB;
+            }
+            else{
+                a = a -> next;
+            }
+            if(b==NULL){
+                b=headA;
+            }
+            else{
+                b = b -> next;
+            }
+        }
+        return a;
     }
 };
