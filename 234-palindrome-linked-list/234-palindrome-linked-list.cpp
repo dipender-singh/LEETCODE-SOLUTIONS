@@ -20,29 +20,31 @@ public:
         if(head->next==NULL){
             return true;
         }
-        vector<int> ans;
+        vector<int> ans; //SC IS O(N)
         ListNode* temp = head;
         int size = 0;
-        while(temp!=NULL){
+        while(temp!=NULL){ // TC IS O(N)
             ans.push_back(temp->val);
             size++;
             temp=temp->next;
         }
         int mid = size/2;
         if(size % 2 == 0){ // When the List is of Even Size
-            for(int i = mid-1 , j = mid ; i>=0 , j < size ; i-- , j++){
+            for(int i = mid-1 , j = mid ; i>=0 , j < size ; i-- , j++){//O(N/2)
                 if(ans[i]!=ans[j]){
                     return false;
                 }
             }
         }
-        if(size%2!=0){
-            for(int i = mid-1 , j = mid+1 ; i>=0 , j < size ; i-- , j++){
+        if(size%2!=0){    // // When the List is of Odd Size
+            for(int i = mid-1 , j = mid+1 ; i>=0 , j < size ; i-- , j++){//O(N/2)
                 if(ans[i]!=ans[j]){
                     return false;
                 }
             }
         }
         return true;
+        //TC IS O(N)+O(N/2)
+        //SC IS O(N)
     }
 };
