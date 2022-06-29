@@ -10,8 +10,8 @@
  */
 class Solution {
 public:
+    /*BRUTE FORCE USING A VECTOR
     bool isPalindrome(ListNode* head) {
-        //BRUTE FORCE
         ios_base::sync_with_stdio(0);
         cin.tie(0);cout.tie(0);
         if(head==NULL) {
@@ -46,5 +46,27 @@ public:
         return true;
         //TC IS O(N)+O(N/2)
         //SC IS O(N)
-    }
+        */
+      /*APPROACH 2 USING STACK
+      NOW WHERE-EVER WE OBSERVE TERMS LIKE REVERSE OR PALINDROME THEN STACK IS THE BEST AVAILABE DATA 
+      STRUCTURE*/
+       bool isPalindrome(ListNode* head){
+           ios_base::sync_with_stdio(0);
+           cin.tie(0);cout.tie(0);
+           ListNode* temp = head;
+           stack<int> st;
+           while(temp!=NULL){
+               st.push(temp->val);
+               temp=temp->next;
+           }
+           temp=head;
+           while(temp!=NULL){
+             if(temp->val!=st.top()){
+                   return false;
+               }
+               temp=temp->next;
+               st.pop();
+           }
+           return true;
+       }
 };
