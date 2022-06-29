@@ -73,6 +73,10 @@ public:
     // OUR STACK
     // SC IS O(N) FOR THE STACK
     */
+    // OPTIMAL APPROACH USING TWO POINTER WHEN FAST POINTER REACHES TO END SLOW IS AT THE MIDDLE SO, 
+    // WHILE WE TRAVERSE OUR TWO POINTERS SIDE BY SIDE WE WILL KEEP ON REVERSING OUR LIST BEHIND OUR 
+    // SLOW POINTER. JUST AFTER OUR FAST REACHES TO END WE WILL TRAVERSE OUR SLOW AND WE WILL TRAVERSE 
+    // THE LINKED LIST WHICH WE HAVE REVERSED AND THEN WE WILL KEEP ON MATCHING THE VALUES
     bool isPalindrome(ListNode* head){
         ios_base::sync_with_stdio(0);
         cin.tie(0);cout.tie(0);
@@ -84,17 +88,19 @@ public:
         if(head==NULL){
             return true;
         }
-        while(fast!=NULL and fast->next!=NULL){
+        while(fast!=NULL and fast->next!=NULL){ // TC HERE IS O(N/2)
             fast=fast->next->next;
             temp=slow;
             slow=slow->next;
             temp->next=p;
             p=temp;
         }
-        if(fast!=NULL and fast->next==NULL){
+        if(fast!=NULL and fast->next==NULL){ // THIS IS THE CASE WHEN WE HAVE AN ODD SIZE LINKED LIST 
+            //AND WHEN FAST->NEXT IS EQUAL TO NULL OUR SLOW POINTER WILL BE AT THE MIDDLE ELEMENT SO 
+            // WE JUST HAVE TO MOVE THE SLOW POINTER TO IT'S NEXT POSITION   
             slow=slow->next;
         }
-        while(slow!=NULL and p!=NULL){
+        while(slow!=NULL and p!=NULL){ // TC HERE IS AGAIN O(N/2)
             if(slow->val!=p->val){
                 return false;
             }
@@ -102,5 +108,7 @@ public:
             p=p->next;
         }
         return true;
+        // SO TOTAL TC IS O(N/2) + O(N/2)
+        // AND SC IS O(1)
     }
 };
