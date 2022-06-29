@@ -49,7 +49,7 @@ public:
         */
       /*APPROACH 2 USING STACK
       NOW WHERE-EVER WE OBSERVE TERMS LIKE REVERSE OR PALINDROME THEN STACK IS THE BEST AVAILABE DATA 
-      STRUCTURE*/
+      STRUCTURE
        bool isPalindrome(ListNode* head){
            ios_base::sync_with_stdio(0);
            cin.tie(0);cout.tie(0);
@@ -69,4 +69,38 @@ public:
            }
            return true;
        }
+    // TC IS O(N)+O(N) IF THE LINKED LIST IS PALINDROME ELSE WE WILL RETURN FALSE ANYWHERE IN BW OF 
+    // OUR STACK
+    // SC IS O(N) FOR THE STACK
+    */
+    bool isPalindrome(ListNode* head){
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
+        ListNode* slow = head;
+        ListNode* fast = head;
+        //ALL WE HAVE TO DO IS JUST REVERSE THE LINKED LIST BEHIND THE SLOW POINTER
+        ListNode* p=NULL;
+        ListNode* temp = head;
+        if(head==NULL){
+            return true;
+        }
+        while(fast!=NULL and fast->next!=NULL){
+            fast=fast->next->next;
+            temp=slow;
+            slow=slow->next;
+            temp->next=p;
+            p=temp;
+        }
+        if(fast!=NULL and fast->next==NULL){
+            slow=slow->next;
+        }
+        while(slow!=NULL and p!=NULL){
+            if(slow->val!=p->val){
+                return false;
+            }
+            slow=slow->next;
+            p=p->next;
+        }
+        return true;
+    }
 };
