@@ -7,9 +7,11 @@ public:
         sort(nums.begin(),nums.end());
         for(int i = 0 ; i < (int)nums.size()-2 ; i++){ // for selecting a 
             if(i==0 || (i>0 && nums[i]!=nums[i-1] )){
-                int lo = i+1,hi = (int)nums.size()-1,sum=0-nums[i];
+                int lo = i+1,hi = (int)nums.size()-1,sum=0-nums[i]; // sum = -(a) and a = nums[i]
                 while(lo<hi){
-                    if(nums[lo]+nums[hi]==sum){
+                    if(nums[lo]+nums[hi]==sum){ // now we are looking for lo and hi such that
+                                                // lo + hi = sum;
+                                                // because lo + hi + sum = 0
                         vector<int> ans;
                         ans.push_back(nums[lo]);
                         ans.push_back(nums[hi]);
