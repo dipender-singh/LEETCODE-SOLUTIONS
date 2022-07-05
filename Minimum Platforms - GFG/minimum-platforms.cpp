@@ -13,28 +13,23 @@ class Solution{
     int findPlatform(int arr[], int dep[], int n)
     {
     	// Your code here
-    	//Comparator function to sort the trains on the basis of their departure time
-    	vector<pair<int,int>> times;
-    	for(int i = 0 ; i < n ; i++){
-    	    times.push_back({arr[i],dep[i]});
-    	}
-    	sort(times.begin(),times.end());
-    	priority_queue<int, vector<int>, greater<int>> pq; // this is min priority queue
-    	int np = 1;
-    	int siz = 1;
-    	pq.push(times[0].second);
-    	for(int i = 1 ; i < n ; i++){
-    	    if(times[i].first > pq.top()){
-    	        pq.pop();
-    	        pq.push(times[i].second);
+    	sort(arr,arr+n); // Sort the Arrival
+    	sort(dep,dep+n); // Sort the Departure
+    	int i = 1, j = 0, max_p = 1, current_p = 1;
+    	while(i < n && j < n){
+    	    if(arr[i] > dep[j]){
+    	        current_p--;
+    	        j++;
     	    }
-    	    else{
-    	        pq.push(times[i].second);
+    	    else if(arr[i] <= dep[j]){
+    	        current_p++;
+    	        i++;
     	    }
-    	    siz = pq.size(); 
-    	    np=max(np,siz);
+    	    if(current_p > max_p){
+    	        max_p = current_p;
+    	    }
     	}
-    	return np;
+    	return max_p;
     }
 };
 
