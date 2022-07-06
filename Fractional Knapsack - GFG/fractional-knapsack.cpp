@@ -16,18 +16,22 @@ struct Item{
     int weight;
 };
 */
-
+bool comp(Item a , Item b){
+        double r1 = (double)a.value/(double)a.weight;
+        double r2 = (double)b.value/(double)b.weight;
+        return (r1 > r2);// return ture if no need to swap 
+    }
 
 class Solution
 {
     public:
     
-    static bool comp(Item a , Item b){
+   /* static bool comp(Item a , Item b){
         double r1 = (double)a.value/(double)a.weight;
         double r2 = (double)b.value/(double)b.weight;
         return (r1 > r2);// return ture if no need to swap 
     }
-    
+    */
     //Function to get the maximum total value in the knapsack.
     double fractionalKnapsack(int W, Item arr[], int n)
     {
