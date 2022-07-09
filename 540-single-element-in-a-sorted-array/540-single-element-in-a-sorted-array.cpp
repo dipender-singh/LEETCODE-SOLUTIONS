@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // HINT VIDEO: https://www.youtube.com/watch?v=PzszoiY5XMQ&list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma&index=65
     int singleNonDuplicate(vector<int>& nums) {
         //Brute Force can be using Hash-Map or Frequency Array and another can be using XOR
         // Optimized
