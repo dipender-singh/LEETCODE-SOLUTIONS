@@ -6,7 +6,7 @@ using namespace std;
  // } Driver Code Ends
 class Solution{
     public:
-    int kthElement(int arr1[], int arr2[], int n, int m, int k)
+    int kthElement(int input1[], int input2[], int n, int m, int k)
     {
         /*Perform Merge sort to store the elements in a vector this is Brute Force
         vector<int> ans; // SC IS O(MAX(M,N))
@@ -44,48 +44,93 @@ class Solution{
         return ans[k-1];
         TC IS O()
         */
-        //Now By Using again Merge Sort but without using and Extra Space
-           int count = 0, i = 0, j = 0;
- 
-    // Keep taking smaller of the current
-    // elements of two sorted arrays and
-    // keep incrementing k
-    while(i < n && j < m)
-    {
-        if(arr1[i] < arr2[j])
+        /*Now By Using again Merge Sort but without using an Extra Space
+        int count = 0, i = 0, j = 0;
+        while(i < n && j < m)
+        {
+            if(arr1[i] < arr2[j])
+            {
+                count++;
+                if(k == count)
+                    return arr1[i];
+                i++;
+            }
+            else
+            {
+                count++;
+                if(k == count)
+                    return arr2[j];
+                j++;
+            }
+        }
+     
+        // If array B[] is completely traversed
+        while(i < n)
         {
             count++;
             if(k == count)
                 return arr1[i];
             i++;
         }
-        else
+     
+        // If array A[] is completely traversed
+        while(j < m)
         {
             count++;
             if(k == count)
                 return arr2[j];
             j++;
         }
-    }
- 
-    // If array B[] is completely traversed
-    while(i < n)
-    {
-        count++;
-        if(k == count)
-            return arr1[i];
-        i++;
-    }
- 
-    // If array A[] is completely traversed
-    while(j < m)
-    {
-        count++;
-        if(k == count)
-            return arr2[j];
-        j++;
-    }
-    }
+        TC IS O(MAX(M,N))+O(MIN(M,N)) IN THE WORST CASE
+        SC IS O(1)
+        */
+        //Now by using the concept of Binary Search similar to Median of two sorted arrays
+       if(n>m){
+           return kthElement(input2,input1,m,n,k);
+       }
+       int l1 = 0 , l2 = 0 , r1 = 0 , r2 = 0;
+       int low = max(0,k-m);
+       int high = min(k,n);
+       while(low<=high){
+           int part_x = (low+high)/2;
+           int part_y = k-part_x;
+           
+           if(part_x == 0){
+               l1 = INT_MIN;
+           }
+           else{
+               l1 = input1[part_x-1];
+           }
+           if(part_y==0){
+               l2 = INT_MIN;
+           }
+           else{
+               l2 = input2[part_y-1];
+           }
+           if(part_x == n){
+               r1 = INT_MAX;
+           }
+           else{
+               r1 = input1[part_x];
+           }
+           if(part_y == m){
+               r2 = INT_MAX;
+           }
+           else{
+               r2 = input2[part_y];
+           }
+           if(l1<=r2 and l2<=r1){
+               return max(l1,l2);
+           }
+           else if(l1>r2){
+               high = part_x-1;
+           }
+           else {
+               low = part_x+1;
+           }
+       }
+       return 0;
+}
 };
 
 // { Driver Code Starts.
