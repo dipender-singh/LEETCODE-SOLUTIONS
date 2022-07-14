@@ -14,23 +14,21 @@ class Solution{
     vector<int> help_classmate(vector<int> arr, int n) 
     { 
         // Your code goes here
-       vector<int> ans(n);
-       
-       stack<int> st;
-       st.push(-1);
-       
-       for(int i=n-1; i>=0; i--)
-       {
-           int item = arr[i];
-           
-           while(st.top()!=-1 && st.top() >= item)
-               st.pop();
-           if(st.top() < item)
-               ans[i] = st.top();
-           st.push(item);
-       }
-       
-       return ans;
+        stack<int> st;
+        vector<int> ans(n,-1);
+        for(int i = n-1 ; i>=0 ; --i){
+            while(st.size()!=0 and st.top()>=arr[i]){
+                st.pop();
+            }
+            if(st.size()!=0){
+            ans[i]=st.top();
+            st.push(arr[i]);
+            }
+            if(st.size()==0){
+                st.push(arr[i]);
+            }
+        }
+        return ans;
     } 
 };
 
