@@ -3,7 +3,7 @@ public:
     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
         ios_base::sync_with_stdio(0);
         cin.tie(0);cout.tie(0);
-        //BRUTE FORCE
+        /*BRUTE FORCE
         vector<int> ans;
         for(int i = 0 ; i < nums1.size() ; i++){// We will iterate for every element in nums1
             bool flag = false;
@@ -25,5 +25,29 @@ public:
         return ans;
         //TC IS O(M*N)
         //SC IS O(M) WHEN FOR EVERY ELEMENT OF M WE GET A NEXT GREATOR IN N SIZE ARRAY
+        */
+        //OPTIMIZED SOLUTION
+        vector<int> ans;
+        stack<int> st;
+        map<int,int> mp;
+        for(int i = nums2.size()-1 ; i >=0  ; i--){
+            while(st.size()!=0 and st.top()<=nums2[i]){ // Now this loop will not be executed everytime, so we 
+                                                        // can't say that the TC of the part with while loop 
+                                                        // within for loop will be O(n^2) 
+                st.pop();
+            }
+            if(st.size()!=0 and st.top()>nums2[i]){
+                mp[nums2[i]]=st.top();
+                st.push(nums2[i]);
+            }
+            if(st.size()==0){
+                mp[nums2[i]]=-1;
+                st.push(nums2[i]);
+            }
+        }
+        for(int i = 0 ; i < nums1.size() ; i++){
+            ans.push_back(mp[nums1[i]]);
+        }
+        return ans;
     }
 };
