@@ -56,7 +56,10 @@ public:
     }
     
     void put(int key, int value) {
-        //First we will check that this key is already present in the map with another value or not
+        //First we will check that this key is already present in the map with another value or not if yes then 
+        //we will update the value and updating the value will result in using it so now it is recently used so 
+        //we will change it's position and make it attach to the next of the dummy head and then will update 
+        //the address in the map 
         if(mp.find(key)!=mp.end()){
             ListNode* already = mp[key];
             mp.erase(key);
