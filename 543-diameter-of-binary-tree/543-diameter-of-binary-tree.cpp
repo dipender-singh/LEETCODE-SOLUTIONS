@@ -19,7 +19,7 @@ public:
         int leftHeight=helper(root->left);
         int rightHeight=helper(root->right);
         diameter=max(diameter,leftHeight+rightHeight);
-        return max(leftHeight,rightHeight)+1;
+        return 1+max(leftHeight,rightHeight);
     }
     int diameterOfBinaryTree(TreeNode* root) {
         helper(root);
