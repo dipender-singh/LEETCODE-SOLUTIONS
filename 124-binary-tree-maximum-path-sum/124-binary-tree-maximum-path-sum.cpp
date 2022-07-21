@@ -15,8 +15,8 @@ public:
     
     int helper(TreeNode* root){
         if(!root)return 0;
-        int lv = max(helper(root->left),0); // Because i want to eleiminate the negative values
-        int rv = max(helper(root->right),0);
+        int lv = max(helper(root->left),0); // Because i want to eleminate the negative values
+        int rv = max(helper(root->right),0); // Because i want to eleminate the negative values
         max_path = max(max_path,root->val+lv+rv);
         return root->val+max(lv,rv);
     }
