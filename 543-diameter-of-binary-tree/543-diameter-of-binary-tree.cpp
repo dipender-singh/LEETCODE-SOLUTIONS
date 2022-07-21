@@ -22,6 +22,8 @@ public:
         return 1+max(leftHeight,rightHeight);
     }
     int diameterOfBinaryTree(TreeNode* root) {
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
         helper(root);
         return diameter;
     }
