@@ -12,6 +12,9 @@
 class Solution {
 public:
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        //We will keep a count that will tell us to know that we have to reverse our vector or not
+        //We will run a loop form 0 to the initial size of the queue before a for loop to get all the elements 
+        //of a level in the ans vector  
         ios_base::sync_with_stdio(0);
         cin.tie(0);cout.tie(0);
         vector<int> ans;
@@ -24,7 +27,7 @@ public:
         queue<TreeNode*> q;
         q.push(root);
         while(q.size()!=0){
-         int s = q.size();
+         int s = q.size();//This will help us to get the number of elements in a particular level 
             ans={};
             for(int i = 0 ; i < s ; i++){
                 TreeNode* temp = q.front();
