@@ -38,9 +38,7 @@ public:
         if(root==NULL){
             return true;
         }
-       // else if(root->left!=NULL and root->right!=NULL){
         ans = find(root->left,root->right);
-        //}
         return ans;
     }
 };
