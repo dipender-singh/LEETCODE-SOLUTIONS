@@ -31,4 +31,6 @@ public:
         }
         return root;
     }
+    /*TC IS O(logN) because we are traversing the height and in the worst case if we are at the leaf node
+      then it means that we have traversed the total height of the tree which for a BST is equal to logN.*/
 };
