@@ -11,7 +11,8 @@
  */
 class Solution {
 public:
-    
+    //This one is Brute Force Code
+    //Traverse over the whole tree store it in a vector sort that vector and return (k-1)th element
     void traverse(TreeNode* root, vector<int>& ans){
         if(root==NULL){
             return;
@@ -24,12 +25,17 @@ public:
     int kthSmallest(TreeNode* root, int k) {
         ios_base::sync_with_stdio(0);
         cin.tie(0);cout.tie(0);
-        //Brute Force
-        //Traverse over the whole tree store it in a vector sort that vector and run a for loop till kth 
-        //position and return that element
         vector<int> ans;
         traverse(root,ans);
-        sort(ans.begin(),ans.end());
+        //sort(ans.begin(),ans.end());
         return ans[k-1];
     }
+    /*
+    //Better Approach
+    int kthSmallest(TreeNode* root, int k){
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
+        
+    }
+    */
 };
