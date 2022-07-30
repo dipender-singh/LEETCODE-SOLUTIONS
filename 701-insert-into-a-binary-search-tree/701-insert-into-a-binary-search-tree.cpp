@@ -17,17 +17,19 @@ public:
             return 0;
         }
         if(root->val > val){
-            //Go to left
+            //Go to Left
             int l = insert(root->left,val);
             if(l==0){
-                //insert the node and attach that to the left of this root
+                //Create the node and attach that to the left of this root
                 TreeNode* node = new TreeNode(val);
                 root->left = node;
             }
         }
         else if (root->val < val){
+            //Go to Right
             int r = insert(root->right,val);
             if(r==0){
+                //Create the node and attach that to the right of this root
                 TreeNode* node = new TreeNode(val);
                 root->right = node;
             }
@@ -43,7 +45,7 @@ public:
             TreeNode* node = new TreeNode(val);
             return node;
         }
-        //Now after inserting the Node the tree should still be a BST
+        //Now after inserting the Node the tree will still be a BST
         insert(root,val);
         return root;
     }
