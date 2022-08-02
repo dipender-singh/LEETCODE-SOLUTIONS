@@ -1,5 +1,6 @@
 class Solution {
 public:
+    /* Using BFS 
     bool check(int start, int V, queue<int> &q , vector<int> &color,vector<vector<int>> &graph){
  	q.push(start);
  	color[start]=0;
@@ -33,10 +34,38 @@ public:
      queue<int> q; //This will help us to store the nodes while doing BFS
      //We will try to do BFS Traversal
      for(int i = 0 ; i < V ; i++){ //For Selecting the Components
-         if(color[i]==-1){
+         if(color[i]==-1){ //For selecting only those components which are not visited yet
      if(!check(i,V,q,color,graph)) return false;
          }
  }
  return true;
+    }
+    */
+    //Using DFS
+    
+    bool check(int s, int V, vector<int> &color, vector<vector<int>> &graph){
+        if(color[s]==-1) color[s]=1;
+        for(auto it : graph[s]){
+            if(color[it]==-1){
+                color[it]=1-color[s];
+                if(check(it,V,color,graph)==false) return false;
+            }
+            else if(color[it]==color[s]) return false;
+        }
+        return true;
+    }
+    
+    bool isBipartite(vector<vector<int>>& graph){
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
+        int V = graph.size();
+        vector<int> color(V,-1);
+        bool ans = true;
+        for(int i = 0 ; i < V ; i++){
+            if(color[i]==-1){
+                if(!check(i,V,color,graph)) return false;
+            }
+        }
+        return ans;
     }
 };
