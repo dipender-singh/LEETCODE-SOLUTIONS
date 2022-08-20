@@ -18,7 +18,7 @@
 class Solution {
 public:
 
-        map<string,vector<pair<string,double>>> mp;
+        unordered_map<string,vector<pair<string,double>>> mp;
     
     double bfs(string o , string t){
         //Now BFS requires a Queue and a Visited Array
@@ -74,5 +74,5 @@ public:
         }
         return result;
     }
-    //Time Complexity:- Since it is BFS so it will be O()
+    
 };
