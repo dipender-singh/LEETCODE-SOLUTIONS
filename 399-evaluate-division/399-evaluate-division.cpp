@@ -25,8 +25,8 @@ public:
         string src = o;
         string dest = t;
         queue<pair<string,double>> qe;
-        unordered_set<string> visited;
-        qe.push({src,1});
+        unordered_set<string> visited; //Visited Vector of Strings
+        qe.push({src,1}); //Queue to do BFS
         visited.insert(src);
         while(qe.size()!=0){
             auto it = qe.front(); //Now this 'it' operator will point to a whole pair which was stored at the 
@@ -55,9 +55,14 @@ public:
         for(int i  = 0 ; i < e.size() ; i++){
             string none = e[i][0];
             string ntwo = e[i][1];
-            double val = v[i];
-            mp[none].push_back({ntwo,val});
-            mp[ntwo].push_back({none,double(1/val)});
+            double val = v[i]; 
+            mp[none].push_back({ntwo,val}); //Here if we are given an edge of a ---> b then we will push it                                               //into the graph
+            mp[ntwo].push_back({none,double(1/val)}); //Now there can be a query b ---> a then in that case 
+                                                      //if we are given an equation a ---> b with weight x, 
+                                                      //then for the query b ----> a we will return 1/x, 
+                                                      //that's why for a given equation a ---> b with weight 
+                                                      //x we are adding the equation b ---> a with weight 1/x 
+                                                      //in the graph
         }
         //Vector to store the values for the given queries
         vector<double> result;
