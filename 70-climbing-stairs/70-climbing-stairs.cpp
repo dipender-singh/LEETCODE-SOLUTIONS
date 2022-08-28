@@ -35,7 +35,7 @@ public:
         return dp[n];
     }
     */
-    //Dynamic Programming Solution
+    /* Dynamic Programming Solution
     int climbStairs(int n) {
         ios_base::sync_with_stdio(0);
         cin.tie(0);cout.tie(0);
@@ -46,5 +46,23 @@ public:
             dp[i] = dp[i-1]+dp[i-2];
         }
         return dp[n];
+    }
+    */
+    //Memory Optimized Solution
+    int climbStairs(int n) {
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
+        if(n==1){
+            return 1;
+        }
+        int x = 1;
+        int y = 1;
+        int ans;
+        for(int i = 2 ; i <= n ; i++){
+            ans=x+y;
+            x = y;
+            y = ans;
+        }
+        return ans;
     }
 };
