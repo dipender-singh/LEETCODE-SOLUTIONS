@@ -12,8 +12,7 @@ public:
     }
     */
     
-    //Memoization Solution
-    
+    /*Memoization Solution
     int helper(int n, vector<int> &dp){
         if(n==0 || n==1){
             dp[n]=1;
@@ -33,6 +32,19 @@ public:
         dp[0]=1;
         dp[1]=1;
         int a = helper(n,dp);
+        return dp[n];
+    }
+    */
+    //Dynamic Programming Solution
+    int climbStairs(int n) {
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
+        vector<int> dp(n+1,-1);
+        dp[0]=1;
+        dp[1]=1;
+        for(int i = 2 ; i <= n ; i++){
+            dp[i] = dp[i-1]+dp[i-2];
+        }
         return dp[n];
     }
 };
