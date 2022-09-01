@@ -6,22 +6,24 @@ class Solution
         {
            	//Base Case
             if (c == n)
-            {   dp[c] = nums[c];
+            {
+                dp[c] = nums[c];
                 return nums[c];
             }
             if (c > n)
             {
                 return 0;
             }
-            if(dp[c]!=-1){
-            	return dp[c];
-			}
+            if (dp[c] != -1)
+            {
+                return dp[c];
+            }
             /*Now left and right can be used to describe the two scenarios:-
             1.) We can loot the current the house then leave the next adjacent house and go for the house at                 the third position from the current house.
             2.) We can leave the current house and can go for the next adjacent house and then decide to loot                 the next adjacent house.*/
-            int left = nums[c] + helper(c + 2, n, nums,dp); //Looted the current house
-            int right = helper(c + 1, n, nums,dp);	//Not Looted the current house
-            dp[c] = max(left, right); //Return the max profit out of both the scenarios
+            int left = nums[c] + helper(c + 2, n, nums, dp);	//Looted the current house
+            int right = helper(c + 1, n, nums, dp);	//Not Looted the current house
+            dp[c] = max(left, right);	//Return the max profit out of both the scenarios
             return dp[c];
         }
 
@@ -33,10 +35,10 @@ class Solution
         cout.tie(0);
         int ans = 0;
         int n = nums.size() - 1;
-        vector<int> dp(n+1,-1);
+        vector<int> dp(n + 1, -1);
        	//Now at every house i have two options either i can loot that particular house or i can leave the 
        	//current house and go towards the next house.
-        ans = helper(0, n, nums,dp);
+        ans = helper(0, n, nums, dp);
         return ans;
     }
 };
