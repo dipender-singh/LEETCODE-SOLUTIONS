@@ -66,10 +66,14 @@ public:
         //A vector having m elements and each element is a vector of size 'n'.
         vector<vector<int>> dp( m , vector<int> (n, 0)); 
         for(int i = 0 ; i < n ; i++){
-            dp[0][i] = 1;
+            dp[0][i] = 1; //Because when we are in the first row and we are moving in the first row then we 
+                          //are moving on the same path so the number of unique paths in the first row will 
+                          //be '1'.
         }
         for(int i = 0 ; i < m ; i++){
-            dp[i][0] = 1;
+            dp[i][0] = 1; //Because when we are in the first column and we are moving in the first column
+                          //then we are moving on the same path so the number of unique paths in the first 
+                          //column will be '1'.
         }
         for(int i = 1 ; i < m ; i++){
             for(int j = 1 ; j < n ; j++){
