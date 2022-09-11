@@ -28,7 +28,7 @@ public:
         return ans;
     }
     */
-    
+    /*
     int helper(int i, int j, int m , int n, vector<vector<int>> &dp){
         if(i>=m || j >=n){
             return 0;
@@ -54,11 +54,28 @@ public:
         vector<vector<int>> dp( m , vector<int> (n, -1)); 
         //Now we know that when we are in the last row or last column then to reach the destination there 
         //will only be a single path.
-        /*for(int i  = 0 ; i < n ; i++){
-            dp[m-1][i] = 1; // From last row we have only one path
-            dp[i][n-1] = 1; // From last column we have only one path
-        }*/
+        
         int ans = helper(0,0,m,n,dp);
         return ans;
+    }
+    */
+    int uniquePaths(int m, int n){
+        //Now using Dynamic Programming
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
+        //A vector having m elements and each element is a vector of size 'n'.
+        vector<vector<int>> dp( m , vector<int> (n, 0)); 
+        for(int i = 0 ; i < n ; i++){
+            dp[0][i] = 1;
+        }
+        for(int i = 0 ; i < m ; i++){
+            dp[i][0] = 1;
+        }
+        for(int i = 1 ; i < m ; i++){
+            for(int j = 1 ; j < n ; j++){
+                dp[i][j] = dp[i-1][j] + dp[i][j-1];
+            }
+        }
+        return dp[m-1][n-1];
     }
 };
