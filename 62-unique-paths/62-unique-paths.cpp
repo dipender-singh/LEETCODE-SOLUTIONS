@@ -59,6 +59,7 @@ public:
         return ans;
     }
     */
+    /*
     int uniquePaths(int m, int n){
         //Now using Dynamic Programming
         ios_base::sync_with_stdio(0);
@@ -81,5 +82,25 @@ public:
             }
         }
         return dp[m-1][n-1];
+        //dp[i][j] represents the number of unique path from index(0,0) to the index(i,j).
+    }
+    */
+    
+    //Space Optimization
+    //We are using tht dp[i-1][j] and dp[i][j-1] so this means that we are requiring only two array or vector
+    //So we will maintian 2 vectors
+    
+    int uniquePaths(int m, int n){
+        //Now using Dynamic Programming
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
+        vector<int> pre(n, 1), cur(n, 1);
+        for(int i = 1 ; i < m ; i++){
+            for(int j = 1 ; j < n ; j++){
+                cur[j] = cur[j-1] + pre[j]; 
+            }
+            swap(cur,pre);
+        }
+        return pre[n-1];
     }
 };
