@@ -1,106 +1,64 @@
-//hint: https://leetcode.com/problems/unique-paths/discuss/1581998/C%2B%2BPython-5-Simple-Solutions-w-Explanation-or-Optimization-from-Brute-Force-to-DP-to-Math
-// video: https://www.youtube.com/watch?v=t_f0nwwdg5o
 class Solution {
 public:
-    // BRUTE FORCE USING RECURSION
-   /* TC:- O(2^(N+M))
-    int calculate(int i , int j, int r , int c){
-        if( i >= r || j >= c ){ // we have crossed the specified boundaries
+    /*
+    int helper(int i , int j, int m, int n){
+        if(i>=m || j>=n){
             return 0;
         }
-        if(i==r-1 || c==j-1){ // we have reached the final destination 
+        if(i == m-1 || j == n-1){ 
+            //This means that when we are in the last row or in the last column then we have only one path to 
+            //reach the last cell and that is through that particular last row or last column. 
             return 1;
         }
-        int ans1=0,ans2=0;
-         ans1 = calculate(i+1,j,r,c); //TC: O(2^N)
-         ans2 = calculate(i,j+1,r,c); //TC: O(2^M)
-         return ans1+ans2;
+        int right = helper(i,j+1,m,n);
+        int down = helper(i+1,j,m,n);
+        //Then after calculating the ways through a particular cell by taking one step right and one step 
+        //down. We will return the total number of paths and that will be equal to the sum of number of paths 
+        //we get by taking one step right and one step down.  
+        return right+down;
     }
     
     int uniquePaths(int m, int n) {
+      //Revisiting in Striver's DP Series
         ios_base::sync_with_stdio(0);
         cin.tie(0);cout.tie(0);
-        int ans=0;
-        ans = calculate(0,0,m,n);
+        //Using Recursion
+        int ans = 0;
+        ans = helper(0,0,m,n);
         return ans;
     }
     */
-    /*MEMOIZATION:- SAVING THE VALUES IN A MATRIX
-    int memoization(vector<vector<int>> &ans , int i , int j , int m, int n){ 
-        if(ans[i][j]!=0){
-            return ans[i][j];
+    
+    int helper(int i, int j, int m , int n, vector<vector<int>> &dp){
+        if(i>=m || j >=n){
+            return 0;
+        }
+        if(dp[i][j]!=-1){
+            return dp[i][j];
         }
         if(i==m-1 || j == n-1){
+            dp[i][j]=1;
             return 1;
         }
-        int ans1=0;
-        int ans2=0;
-        ans1 = memoization(ans,i+1,j,m,n);
-        ans2 = memoization(ans,i,j+1,m,n);
-        ans[i][j]=ans1+ans2;
-        return ans[i][j];
+        int right = helper(i,j+1,m,n,dp);
+        int down = helper(i+1,j,m,n,dp);
+        dp[i][j] = right + down;
+        return right+down;
     }
     
     int uniquePaths(int m, int n){
-        ios_base::sync_with_stdio(0);
-        cin.tie(0);cout.tie(0);  
-        vector<vector<int>> ans(m, vector<int> (n,0));
-        int a = memoization(ans,0,0,m,n);
-        // last se chal ke mere answer pehle index a gya wohi maine return kara diya
-        // iska matlab mein 2d matrix mein sabse niche se travel karke sabse upar aaya
-        // in this approach my index (i,j) represents the number of unique paths from (i,j) to
-        // (m-1,n-1)
-        return a;
-        }
-        TC: O(M*N) BECAUSE WE ARE CALCULATING AND STORING THE VALUES IN 2D MATRIX WE ARE DOING 
-          RECURSIVE CALLS BUT WE ARE CHECKING IF A VALUE IS ALREADY THERE FOR THE SPECIFIC VALUES OR 
-          NOT AND THAT VALUE WE ARE LOOKING IN THE 2D MATRIX ITSELF SO IT IS LIKE WE ARE MOVING IN A 
-          2D MATRIX ITSELF
-        SC: O(M*N) BECAUSE WE ARE CALCULATING AND STORING THE VALUES IN 2D MATRIX
-        */
-    /*DP APPROACH : ab mai upar se chalte hue niche jaunga or mera answer obviously array ke sabse
-                 // last index pe stored hoga
-    // now at (i,j) there will be the number of unique paths one can take to reach (i,j) from (0,0)
-    int uniquePaths(int m, int n){
+        //Now using Memoization
         ios_base::sync_with_stdio(0);
         cin.tie(0);cout.tie(0);
-        vector<vector<int>> dp(m,vector<int>(n,1)); //this will make a 2d vector of m*n with all 0
-        dp[0][0]=1;
-        for(int i = 1 ; i < m ; i++){
-            for(int j = 1 ; j < n ; j++){
-                dp[i][j] = dp[i-1][j]+dp[i][j-1];
-            }
-        }
-        return dp[m-1][n-1];
-    }
-   /* TC: O(M*N) BECAUSE WE ARE CALCULATING AND STORING THE VALUES IN 2D MATRIX WE ARE DOING 
-          RECURSIVE CALLS BUT WE ARE CHECKING IF A VALUE IS ALREADY THERE FOR THE SPECIFIC VALUES OR 
-          NOT AND THAT VALUE WE ARE LOOKING IN THE 2D MATRIX ITSELF SO IT IS LIKE WE ARE MOVING IN A 
-          2D MATRIX ITSELF
-        SC: O(M*N) BECAUSE WE ARE CALCULATING AND STORING THE VALUES IN 2D MATRIX
-     */
-    /* DP SPACE OPTIMIZATION USING A SINGLE ARRAY 
-    int uniquePaths(int m, int n){
-        ios_base::sync_with_stdio(0);
-        cin.tie(0);cout.tie(0);
-        vector<int> dp(n,1);
-        for(int i = 1 ; i < m ; i++){
-            for(int j = 1 ; j < n ; j++){
-                dp[j] = dp[j]+dp[j-1];
-            }
-        }
-        return dp[n-1];
-    }
-    */
-    int uniquePaths(int m, int n){
-        ios_base::sync_with_stdio(0);
-        cin.tie(0);cout.tie(0);
-        int N = m+n-2;
-        int r = min(n-1,m-1);
-        double ans = 1;
-        for(int i = 1 ; i <= r ; i++){
-            ans = ans * (N-r+i)/i;
-        }
-        return (int)ans; // typecasting double to integer as the function returns int
+        //A vector having m elements and each element is a vector of size 'n'.
+        vector<vector<int>> dp( m , vector<int> (n, -1)); 
+        //Now we know that when we are in the last row or last column then to reach the destination there 
+        //will only be a single path.
+        /*for(int i  = 0 ; i < n ; i++){
+            dp[m-1][i] = 1; // From last row we have only one path
+            dp[i][n-1] = 1; // From last column we have only one path
+        }*/
+        int ans = helper(0,0,m,n,dp);
+        return ans;
     }
 };
