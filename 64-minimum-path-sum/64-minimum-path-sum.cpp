@@ -59,6 +59,7 @@ public:
         //Now the index i,j represents the minimum path sum from m,n to index i,j.
     }
     */
+    /*
     //Dynamic Programming
     int minPathSum(vector<vector<int>>& grid){
         ios_base::sync_with_stdio(0);
@@ -80,7 +81,36 @@ public:
         }
         return dp[m-1][n-1];
     }
-    
-    
-    
+    */
+    //Space Optimization
+    int minPathSum(vector<vector<int>>& grid){
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
+        int m = grid.size();
+        int n = grid[0].size();
+        //We will maintain two vectors since we are only requring the values of [i-1][j] and [i][j-1]
+        //We are requiring current row's j-1 th column and previous row's j th column.
+        vector<int> pre(n,0);
+        //Now i know the initial values of pre vector
+        pre[0] = grid[0][0];
+        for(int i = 1 ; i < n ; i++){
+            pre[i] = grid[0][i] + pre[i-1];
+        }
+        //Now we will calculate the values of curr vector
+        for(int i = 1 ; i < m ; i++){
+            //Now initialize the curr vector here becuase the curr vector is getting changed everytime
+            vector<int> curr(n,0);
+            for(int j = 0 ; j < n ; j++){
+                int right = 0, down = 0;
+                if(j==0){
+                    curr[j] = grid[i][j] + pre[j];
+                }
+                else{
+                    curr[j] = grid[i][j] + min(pre[j],curr[j-1]);
+                }
+            }
+            swap(curr,pre);
+        }
+        return pre[n-1];
+    }
 };
