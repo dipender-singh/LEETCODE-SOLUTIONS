@@ -21,7 +21,7 @@ public:
         return ans;
     }
     */
-    
+    /*
     int helper(int i , int j , int m, int n , vector<vector<int>>& triangle , vector<vector<int>>& dp){
         if(i == m-1){
             dp[i][j] = triangle[i][j];
@@ -38,11 +38,32 @@ public:
     
     int minimumTotal(vector<vector<int>>& triangle){
         //Memoization
-        
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
         int m = triangle.size();         //Number of Rows
         int n = triangle[m-1].size();    //Number of Columns
         vector<vector<int>> dp(n,vector<int> (n,-1));
         int ans = helper(0,0,m,n,triangle,dp);
         return ans;
     }
+    */
+    int minimumTotal(vector<vector<int>>& triangle){
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
+        int m = triangle.size();
+        int n = triangle[m-1].size();
+        vector<vector<int>> dp(n, vector<int> (n,-1));
+        
+        //Now here in this question for the DP part we will move from bottom towards top
+        for(int i = 0 ; i < n ; i++){
+            dp[n-1][i] = triangle[n-1][i];
+        }
+        for(int i = m-2 ; i >= 0 ; i--){
+            for(int j = 0 ; j < triangle[i].size() ; j++){
+                dp[i][j] = min(dp[i+1][j],dp[i+1][j+1]) + triangle[i][j]; 
+            }
+        }
+        return dp[0][0];
+    }
+    
 };
