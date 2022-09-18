@@ -47,7 +47,9 @@ public:
         return ans;
     }
     */
+    /*
     int minimumTotal(vector<vector<int>>& triangle){
+        //Dynamic Programming
         ios_base::sync_with_stdio(0);
         cin.tie(0);cout.tie(0);
         int m = triangle.size();
@@ -65,5 +67,25 @@ public:
         }
         return dp[0][0];
     }
-    
+    */
+    int minimumTotal(vector<vector<int>>& triangle){
+        //Space Optimization
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
+        int m = triangle.size();
+        int n = triangle[m-1].size();
+        //Now i'm only concerned with current values and previous values
+        vector<int> pre(n,0);
+        for(int i = 0 ; i < n ; i++){
+            pre[i] = triangle[m-1][i];
+        }
+        for(int i = m-2 ; i >= 0 ; i--){
+            vector<int> curr(n,0);
+            for(int j = 0 ; j < triangle[i].size() ; j++){
+                curr[j] = min(pre[j],pre[j+1]) + triangle[i][j];
+            }
+            swap(curr,pre);
+        }
+        return pre[0];
+    }
 };
