@@ -75,6 +75,7 @@ public:
         //Space Complexity:- O(m*n)
     }
     */
+    /*
     int minFallingPathSum(vector<vector<int>>& matrix){
         //Dynamic Programming or Tabulation or Bottom Up means that we will use the base case to calculate 
         //the final results so meaning that we will move from top toward the  last row of the given matrix.
@@ -93,8 +94,8 @@ public:
                 int l = 1e9;
                 int r = 1e9;
                 int u = dp[i-1][j];
-               if(j-1 >= 0) l = dp[i-1][j-1];
-               if(j+1 <= n-1) r = dp[i-1][j+1];
+               if(j-1 >= 0) l = dp[i-1][j-1]; //Just have to take care of this edge case and that's it
+               if(j+1 <= n-1) r = dp[i-1][j+1]; //Just have to take care of this edge case and that's it
                 
                 dp[i][j] = min(u,min(l,r)) + matrix[i][j];
             }
@@ -104,6 +105,37 @@ public:
         int ans = dp[m-1][0];
         for(int i = 0 ; i < n ; i++){
             ans = min(ans,dp[m-1][i]);
+        }
+        return ans;
+    }
+    */
+    int minFallingPathSum(vector<vector<int>>& matrix){
+        //Space Optimization
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
+        int m = matrix.size();
+        int n = matrix[0].size();
+        vector<int> pre(n,0);
+        for(int i = 0 ; i < n ; i++){
+            pre[i] = matrix[0][i];
+        }
+        
+        for(int i = 1 ; i < m ; i++){
+            vector<int> curr(n,0);
+            for(int j = 0 ; j < n ; j++){
+                int l = 1e9;
+                int r = 1e9;
+                int u = pre[j];
+                if( j-1 >= 0) l = pre[j-1];
+                if( j+1 <= n-1) r = pre[j+1];
+                
+                curr[j] = min(u,min(l,r)) + matrix[i][j];
+            }
+            pre=curr;
+        }
+        int ans = pre[0];
+        for(int i = 0 ; i < n ; i++){
+            ans = min(ans,pre[i]);
         }
         return ans;
     }
