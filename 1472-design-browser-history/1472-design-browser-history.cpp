@@ -21,13 +21,17 @@ class Node{
 Node *curr;
 class BrowserHistory {
 public:
+    
     BrowserHistory(string homepage) {
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
+        //Now the "homepage" string is a string is our inital string for the web-page. 
        curr = new Node(homepage);
        //Now curr is a pointer of type Node, which will point to the newly made node of the linked list; 
     }
     
     void visit(string url) {
-        curr->next = new Node(url);
+        curr->next = new Node(url); 
         curr->next->pre = curr;
         curr = curr->next;
     }
