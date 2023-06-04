@@ -19,6 +19,7 @@ public:
             ans[i] = pro;
         }
         return ans;
+        //Time and Space Complexity: Time is O(N*2) and Space is O(N)
         */
         //Better Approach
         int n = nums.size();
@@ -39,5 +40,6 @@ public:
             ans[i] = pre[i] * suff[i];
         }
         return ans;
+        //Time Complexity : O(N*2)
     }
 };
