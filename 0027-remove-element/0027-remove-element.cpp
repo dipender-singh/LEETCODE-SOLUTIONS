@@ -13,7 +13,7 @@ public:
         for(int i  = 0 ; i < ans.size() ; i++){
             nums.push_back(ans[i]);
         }
-        val = {};
+        ans = {}; 
         return nums.size();
     }
 };
