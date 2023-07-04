@@ -1,7 +1,5 @@
 class Solution {
 public:
-    
-    
         bool validBox(vector<vector <char>> &board){
             map<char, int> mp;
              for (int x = 0; x < 9; x = x + 3){
@@ -67,4 +65,6 @@ public:
             if(!validBox(board) || !validRow(board) || !validCol(board)) return false;
             return true;
         }
+    //Time Complexity: O(9*9) + O(9*9*10) + ..... Ultimatley we can say that the Time Complexity is Constant.
+    //Space Complexity: O(10)[FOR ROW VECTOR] + O(10)[FOR COLUMN VECTOR] + O(9)[FOR THE MAP]. 
 };
