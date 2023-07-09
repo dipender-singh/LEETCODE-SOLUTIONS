@@ -1,47 +1,44 @@
 class Solution {
 public:
-    
-    void setintmin(vector<vector<int>>& matrix, int i , int j){
-        //Here we will convert all the elements of that Row and Column to -1, and the elements which we are already Zero we 
-        //will not change them, because their own Row and Column elements needs to be converted to zero.
-        
-        //i is the Row Number and j is the Column Number. 
-        int n = matrix.size();
-        int m = matrix[0].size();
-        for(int x = 0 ; x < m ; x++){
-            if(matrix[i][x]!=-9999 and matrix[i][x]!=0){
-                matrix[i][x] = -9999;
-            }
-        }
-        for(int y = 0 ; y < n ; y++){
-            if(matrix[y][j]!=-9999 and matrix[y][j]!=0){
-                matrix[y][j] = -9999;
-            }
-        }
-    }
-    
     void setZeroes(vector<vector<int>>& matrix) {
-        
         int n = matrix.size();
         int m = matrix[0].size();
-        int count = 0;
-        for(int i = 0 ; i < n ; i++){
-            for(int j = 0 ; j < m ; j++){
+        bool flag1 = false, flag2 = false;
+        for(int i=0; i<n; i++){ //This will help us to remember that the First Column had a Original ZERO.
+            if(matrix[i][0] == 0){
+                flag1 = true;
+            }
+        }
+        for(int j=0; j<m; j++){ //This will help us to remember that the First Row had a Original ZERO.
+            if(matrix[0][j] == 0){
+                flag2 = true;
+            }
+        }
+        
+        //Now we will start finding the Zeroes in the Rest of the Matrix.
+        for(int i=1; i<n; i++){
+            for(int j=1; j<m; j++){
                 if(matrix[i][j] == 0){
-                    count++;
-                    matrix[i][j] = -9999;
-                    setintmin(matrix,i,j);
+                    matrix[i][0] = matrix[0][j] = 0;
                 }
             }
         }
-        if(count!= 0){
-        for(int i = 0 ; i < n ; i++){
-            for(int j = 0 ; j < m ; j++){
-                if(matrix[i][j] == -9999) {
+        for(int i=1; i<n; i++){
+            for(int j=1; j<m; j++){
+                if(matrix[i][0] == 0 || matrix[0][j] == 0){
                     matrix[i][j] = 0;
                 }
             }
         }
-    }
+        if(flag1 == true){
+            for(int i=0; i<n; i++){
+                matrix[i][0] = 0;
+            }
+        }
+        if(flag2 == true){
+            for(int j=0; j<m; j++){
+                matrix[0][j] = 0;
+            }
+        }
     }
 };
