@@ -12,16 +12,23 @@
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
-        //Brute Force
-        //Recursion
-        /*
-        1. Base Case
-        2. Recursive Call + Small Calculation
-        3. Return Statement
-        */
         if(root == NULL){
-            return 0;
+            return NULL;
         }
-        return 1 + max(maxDepth(root -> left), maxDepth(root -> right));
+        //Using BFS: Now Remember for BFS we always use Queue and for DFS: We alsways use Stack
+        int ans = 0;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(q.size()!=0){
+            ++ans;
+            int s= q.size();
+            for(int i = 0 ; i < s ; i++){
+                TreeNode* curr = q.front();
+                q.pop();
+                if(curr -> left) q.push(curr -> left);
+                if(curr -> right) q.push(curr -> right);
+            }
+        }
+        return ans;
     }
 };
