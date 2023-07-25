@@ -11,24 +11,8 @@
 class Solution {
 public:
     ListNode* partition(ListNode* head, int x) {
+        /*
         //Brute Force
-        //This basically means that we have to Re-Arrange the Nodes here. 
-    /*    
-    1 -> 4 -> 3 -> 2 -> 5 -> 2
-    
-    x = 3
-    
-    Here, all nodes with values less than 3 (i.e., 1, 2, 2) come before all nodes with values greater than or 
-    equal to 3 (i.e., 4, 3, 5). Moreover, the relative order of nodes within each partition is maintained. That 
-    means if a node appears before another node in the original list, it should also appear before that node in 
-    the modified list.
-    */            
-        
-        //We have to use the Two Pointer Approach here. 
-        //Do a dry run of how we will detach and attach the nodes at each step, in order to get the final LL.
-        
-        //Creating Seperate List for Elements less than X and Seperate List for Elements greator than or equal to X. 
-        
         if(head == NULL){
             return NULL;
         }
@@ -63,10 +47,6 @@ public:
             temp = temp -> next;
         }
         
-        //Now there can be three conditions here: 1. When all the elements are greator than or equal to x, 
-        //2. When all the elements are less than x .
-        //3. When there is a mixed conditon
-        
         if(dummy1 == NULL){
             return dummy2;
         }
@@ -75,5 +55,34 @@ public:
         }
         t1 -> next = dummy2;
         return dummy1;
+        //Time Complexity : O(n)
+        //Space Complexity : O(n)
+        */
+        
+        //Better Approach: Uisng TWO DUMMY Nodes. 
+        //Hint: https://leetcode.com/problems/partition-list/discuss/2315494/JavaC%2B%2B-Detailed-Explanation
+        
+         ListNode *left = new ListNode(0);
+        ListNode *right = new ListNode(0);
+        
+        ListNode *leftTail = left;
+        ListNode *rightTail = right;
+        
+        while(head != NULL){
+            if(head->val < x){
+                leftTail->next = head;
+                leftTail = leftTail->next;
+            }
+            else{
+                rightTail->next = head;
+                rightTail = rightTail->next;
+            }
+            head = head->next;
+        }
+        
+        leftTail->next = right->next;
+        rightTail->next = NULL;
+        
+        return left->next;
     }
 };
