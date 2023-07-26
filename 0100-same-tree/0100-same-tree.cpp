@@ -12,21 +12,35 @@
 class Solution {
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
-        //Brute Force
-        //Now here values should be the same and the Nodes Links should also be there. 
-        if((p == NULL and q != NULL) || (p != NULL and q == NULL) ){
+        //Will try to solve using BFS and DFS
+        //First BFS: 
+        queue<TreeNode*> q1;
+        queue<TreeNode*> q2;
+        if(p == NULL and q!= NULL || p!=NULL and q == NULL){
             return false;
         }
-        else if( p == NULL and q == NULL){
+        if( p == NULL and q == NULL){
             return true;
         }
-        else if(p -> val != q -> val){
+        q1.push(p);
+        q2.push(q);
+        while(q1.size()!=0 and q2.size()!=0){
+            TreeNode* curr1 = q1.front();
+            TreeNode* curr2 = q2.front();
+            q1.pop();
+            q2.pop();
+            
+        if((curr1 -> left==NULL and curr2 -> left!=NULL) || (curr1 -> left!=NULL and curr2 -> left==NULL)) return false;
+            if( (!curr1 -> right and curr2 -> right) || (curr1 -> right and !curr2 -> right)) return false;
+            if( curr1 -> val != curr2 -> val ) return false;
+            if(curr1 -> left) q1.push(curr1 -> left);
+            if(curr1 -> right) q1.push(curr1 -> right);
+            if(curr2 -> left) q2.push(curr2 -> left);
+            if(curr2 -> right) q2.push(curr2 -> right);
+        }
+        if( (q1.size() == 0 and q2.size() != 0) || (q1.size()!=0 and q2.size() == 0) ){
             return false;
         }
-        bool l = true;
-        l = isSameTree(p -> left, q -> left);
-        bool r = true;
-        r = isSameTree(p -> right, q -> right);
-        return l and r;
+        return true;
     }
 };
