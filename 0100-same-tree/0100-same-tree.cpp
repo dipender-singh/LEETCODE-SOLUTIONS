@@ -13,7 +13,7 @@ class Solution {
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
         //Will try to solve using BFS and DFS
-        //First BFS: 
+        /*First BFS: 
         queue<TreeNode*> q1;
         queue<TreeNode*> q2;
         if(p == NULL and q!= NULL || p!=NULL and q == NULL){
@@ -29,7 +29,6 @@ public:
             TreeNode* curr2 = q2.front();
             q1.pop();
             q2.pop();
-            
         if((curr1 -> left==NULL and curr2 -> left!=NULL) || (curr1 -> left!=NULL and curr2 -> left==NULL)) return false;
             if( (!curr1 -> right and curr2 -> right) || (curr1 -> right and !curr2 -> right)) return false;
             if( curr1 -> val != curr2 -> val ) return false;
@@ -40,6 +39,34 @@ public:
         }
         if( (q1.size() == 0 and q2.size() != 0) || (q1.size()!=0 and q2.size() == 0) ){
             return false;
+        }
+        return true;
+        */
+        
+        //Second DFS:
+        stack<pair<TreeNode*,TreeNode*>> s;
+        if( p == NULL and q == NULL ){
+            return true;
+        }
+        if( p == NULL || q == NULL ){
+            return false;
+        }
+        s.push({p,q});
+        while(s.size()!=0){
+            TreeNode* curr1 = s.top().first;
+            TreeNode* curr2 = s.top().second;
+            s.pop();
+            if (curr1 == NULL && curr2 == NULL) {
+                continue;
+            }
+            if (curr1 == NULL || curr2 == NULL) {
+                return false;
+            }
+            if (curr1->val != curr2->val) {
+                return false;
+            }
+            s.push({curr1->left, curr2->left});
+            s.push({curr1->right, curr2->right});
         }
         return true;
     }
