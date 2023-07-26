@@ -11,30 +11,22 @@
  */
 class Solution {
 public:
-    
-    bool helper(TreeNode* p, TreeNode* q){
-        //Nodes should have the same value
-        //Structure should also be same
-        if(p==NULL and q!=NULL){
-            return false;
-        }
-        else if(p!=NULL and q==NULL){
-            return false;
-        }
-        else if(p==NULL and q==NULL){
-            return true;
-        }
-        if(p->val!=q->val){
-            return false;
-        }
-        bool l = helper(p->left,q->left);
-        bool r = helper(p->right,q->right);
-        return (l&r);
-    }
     bool isSameTree(TreeNode* p, TreeNode* q) {
         //Brute Force
-        ios_base::sync_with_stdio(0);
-        cin.tie(0);cout.tie(0);
-        return helper(p,q);
+        //Now here values should be the same and the Nodes Links should also be there. 
+        if((p == NULL and q != NULL) || (p != NULL and q == NULL) ){
+            return false;
+        }
+        else if( p == NULL and q == NULL){
+            return true;
+        }
+        else if(p -> val != q -> val){
+            return false;
+        }
+        bool l = true;
+        l = isSameTree(p -> left, q -> left);
+        bool r = true;
+        r = isSameTree(p -> right, q -> right);
+        return l and r;
     }
 };
