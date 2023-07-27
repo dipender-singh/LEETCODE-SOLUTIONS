@@ -16,11 +16,11 @@ public:
         if(root -> left == NULL and root->right == NULL){
             return true;
         }
-        queue<pair<TreeNode*,TreeNode*>> q;
+        stack<pair<TreeNode*,TreeNode*>> q;
         q.push({root->left,root->right});
         while(q.size()!=0){
-            TreeNode* curr1 = q.front().first;
-            TreeNode* curr2 = q.front().second;
+            TreeNode* curr1 = q.top().first;
+            TreeNode* curr2 = q.top().second;
             q.pop();
             if(curr1 == NULL and curr2 == NULL){
                 continue;
