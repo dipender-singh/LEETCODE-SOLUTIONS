@@ -12,20 +12,23 @@
 class Solution {
 public:
     TreeNode* invertTree(TreeNode* root) {
-       //Brute Force
+        //Now will Try to Solve using BFS and DFS.
+        //First will Try using the BFS Approach.
         if(root == NULL){
             return NULL;
         }
-        TreeNode* l = NULL;
-        TreeNode* r = NULL;
-        if(root -> left) {
-             l = invertTree(root->left);
+        queue<TreeNode*> q;
+        q.push(root);
+        while(q.size()!=0){
+            TreeNode* curr = q.front();
+            q.pop();
+            if(curr -> left) q.push(curr -> left);
+            if(curr -> right) q.push(curr -> right);
+            TreeNode* l = curr -> left;
+            TreeNode* r = curr -> right;
+            curr -> left = r;
+            curr -> right = l;
         }
-        if(root -> right) {
-             r = invertTree(root->right);
-        }
-        root -> left = r;
-        root -> right = l;
         return root;
     }
 };
