@@ -11,24 +11,29 @@
  */
 class Solution {
 public:
-    
-    bool isSame(TreeNode* root1 , TreeNode* root2){
-        if(root1 == NULL and root2 == NULL){
-            return true;
-        }
-        if(root1 == NULL || root2 == NULL){
-            return false;
-        }
-        if(root1->val != root2->val){
-            return false;
-        }
-        return isSame(root1->left, root2->right) and isSame(root1->right, root2 -> left);
-    }
-    
     bool isSymmetric(TreeNode* root) {
-        if(root -> left == NULL and root -> right == NULL){
+        //BFS
+        if(root -> left == NULL and root->right == NULL){
             return true;
         }
-        return isSame(root->left, root->right);
+        queue<pair<TreeNode*,TreeNode*>> q;
+        q.push({root->left,root->right});
+        while(q.size()!=0){
+            TreeNode* curr1 = q.front().first;
+            TreeNode* curr2 = q.front().second;
+            q.pop();
+            if(curr1 == NULL and curr2 == NULL){
+                continue;
+            }
+            if(curr1==NULL || curr2 == NULL){
+                return false;
+            }
+            if(curr1 -> val != curr2->val){
+                return false;
+            }
+            q.push({curr1->left,curr2->right});
+            q.push({curr1->right,curr2->left});
+        }
+        return (q.size()==0);
     }
 };
