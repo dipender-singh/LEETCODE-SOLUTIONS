@@ -11,24 +11,26 @@
  */
 class Solution {
 public:
-    
-    bool pathSum(TreeNode* root, int targetSum){
-        if(root == NULL){
-            return false;
-        }
-        targetSum = targetSum - root->val;
-        if(root->left == NULL and root->right == NULL and targetSum == 0){
-            return true;
-        }
-        return pathSum(root->left,targetSum) || pathSum(root->right,targetSum);
-    }
-    
     bool hasPathSum(TreeNode* root, int targetSum) {
-        //Do a Dry Run a bit. 
-        //Now when the TargetSum becomes equal to Zero, then we have to ensure that the Node at which we have got targetSum equal to Zero, that Node has to be a Leaf Node.
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);cout.tie(0);
         if(root == NULL){
             return NULL;
         }
-        return pathSum(root,targetSum);
+        queue<pair<TreeNode*,int>> q;
+        q.push({root,0});
+        int sum = 0;
+        while(q.size()!=0){
+            TreeNode* curr = q.front().first;
+            sum = q.front().second;
+            q.pop();
+            sum += curr -> val; 
+            if(curr -> left == NULL and curr -> right == NULL and sum == targetSum){
+                return true;
+            }
+            if(curr -> left) q.push({curr->left,sum});
+            if(curr -> right) q.push({curr->right,sum});
+        }
+        return false;
     }
 };
