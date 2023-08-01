@@ -12,22 +12,21 @@
 class Solution {
 public:
     
-    void helper(TreeNode* root, vector<int>& ans){
-        if(!root) return;
-        ans.push_back(root -> val);
-        helper(root->left,ans);
-        helper(root->right,ans);
+    void helper(TreeNode* root){
+        if(root == NULL) return;                                                                                         
+        helper(root -> left);
+        helper(root -> right);
+        TreeNode* temp = root -> right;
+        TreeNode* t = root;
+        root -> right = root -> left;
+        root -> left = NULL;
+        while(t -> right != NULL){
+            t = t -> right;
+        }
+        t -> right = temp;
     }
     
     void flatten(TreeNode* root) {
-        vector<int> ans;
-        helper(root,ans);
-        TreeNode* temp = root;
-        for(int i = 1 ; i < ans.size() ; i++){
-            temp -> left = NULL;
-            TreeNode* node = new TreeNode(ans[i]);
-            temp -> right = node;
-            temp = temp -> right;
-        }
+        helper(root);
     }
 };
