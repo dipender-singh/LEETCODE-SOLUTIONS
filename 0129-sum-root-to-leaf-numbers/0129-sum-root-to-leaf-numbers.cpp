@@ -11,21 +11,21 @@
  */
 class Solution {
 public:
-    
-    int helper(TreeNode* root, int num){
-        if(root == NULL){
-            return 0;
-        }
-        if(root->left == NULL and root->right == NULL){
-            return root->val + num*10;
-        }
-        num = num * 10 + root -> val;
-        int l = helper(root -> left, num);
-        int r = helper(root -> right, num);
-        return l+r;
-    }
-    
     int sumNumbers(TreeNode* root) {
-        return helper(root,0);
+        //Do using BFS -> DFS -> Morris Traversal. 
+        queue<pair<TreeNode*,int>>q;
+        q.push({root,0});
+        int sum = 0;
+        while(q.size()!=0){
+            TreeNode* curr = q.front().first;
+            int value = q.front().second;
+            q.pop();
+            value = curr->val+value*10;
+            if(curr -> left) q.push({curr -> left, value});
+            if(curr -> right) q.push({curr -> right, value});
+            if(!curr->left and !curr->right) sum = sum + value;
+        }
+        return sum;
+        //Time Complexity and Space Complexity are O(N) and O(H) respectively.
     }
 };
