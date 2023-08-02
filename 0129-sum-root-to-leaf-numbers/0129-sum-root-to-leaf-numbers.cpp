@@ -13,12 +13,12 @@ class Solution {
 public:
     int sumNumbers(TreeNode* root) {
         //Do using BFS -> DFS -> Morris Traversal. 
-        queue<pair<TreeNode*,int>>q;
+        stack<pair<TreeNode*,int>>q;
         q.push({root,0});
         int sum = 0;
         while(q.size()!=0){
-            TreeNode* curr = q.front().first;
-            int value = q.front().second;
+            TreeNode* curr = q.top().first;
+            int value = q.top().second;
             q.pop();
             value = curr->val+value*10;
             if(curr -> left) q.push({curr -> left, value});
