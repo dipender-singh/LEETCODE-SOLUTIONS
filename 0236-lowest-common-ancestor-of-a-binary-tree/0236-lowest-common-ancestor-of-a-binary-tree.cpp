@@ -14,11 +14,8 @@ public:
         if(root == NULL){
             return NULL;
         }
-        if(root == p){
-            return p;
-        }
-        else if(root == q){
-            return q;
+        if(root == p || root == q){
+            return root;
         }
         TreeNode* l = helper(root->left,p,q);
         TreeNode* r = helper(root->right,p,q);
@@ -36,5 +33,7 @@ public:
             return NULL;
         }
         return helper(root,p,q);
+        //Time Complexity : O(N) in the Worst Case.
+        //Space Complexity : O(H) in the Worst Case.
     }
 };
