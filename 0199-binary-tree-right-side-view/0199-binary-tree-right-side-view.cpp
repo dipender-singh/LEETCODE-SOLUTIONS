@@ -9,32 +9,29 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+//If at an Index of the Vector if we already have a value at that Index then we will not push_back any more value.
 class Solution {
 public:
+    
+    void helper(TreeNode* root, vector<int> &ans, int i){
+        if(root == NULL) return;
+        
+        if(i == ans.size())
+            ans.push_back(root->val);
+        
+		// Right first DFS
+        helper(root->right, ans, i+1);
+        helper(root->left, ans, i+1);
+    }
+    
     vector<int> rightSideView(TreeNode* root) {
-        //Can solve this via Level Order Traversal.
-        //We just have to print the Last Element of Each Level.
+        //Recursion:
         if(root == NULL){
             return {};
         }
         vector<int> ans;
-        queue<TreeNode*> q;
-        q.push(root);
-        while(q.size()!=0){
-            int i = q.size();
-            while(i!=1){
-                TreeNode* curr = q.front();
-                q.pop();
-                if(curr->left) q.push(curr -> left);
-                if(curr->right) q.push(curr -> right);
-                i--;
-            }
-            TreeNode* last = q.front();
-            q.pop();
-            ans.push_back(last->val);
-            if(last -> left) q.push(last -> left);
-            if(last -> right) q.push(last -> right);
-        }
+        int mh = 0;
+        helper(root,ans,0);
         return ans;
     }
 };
