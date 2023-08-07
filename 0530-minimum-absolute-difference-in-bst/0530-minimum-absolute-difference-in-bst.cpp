@@ -11,23 +11,24 @@
  */
 class Solution {
 public:
+    int global = INT_MAX;
+    TreeNode* prev = NULL;
     
-    void helper(TreeNode* root, vector<int>& ans){
+    void helper(TreeNode* root){
         if(root == NULL){
-            return;
+            return ;
         }
-        helper(root -> left,ans);
-        ans.push_back(root -> val);
-        helper(root -> right,ans);
+        helper(root -> left);
+        if(prev!=NULL){
+            global = min(global,abs(root -> val - prev -> val));
+        }
+        prev = root;
+        helper(root->right);
     }
     
     int getMinimumDifference(TreeNode* root) {
-        vector<int> ans;
-        helper(root,ans);
-        int finalans = INT_MAX;
-        for(int i = 1 ; i < ans.size() ; i++){
-            finalans = min(finalans,abs(ans[i-1]-ans[i]));
-        }
-        return finalans;
+        //Now without using any Extra Space of N and thus Reducing the Space Complexity to O(H).
+        helper(root);
+        return global;
     }
 };
