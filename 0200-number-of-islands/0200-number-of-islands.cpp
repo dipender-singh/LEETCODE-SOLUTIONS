@@ -1,4 +1,4 @@
-class Solution {
+    class Solution {
 public:
     
     void dfs(int i , int j , vector<vector<char>>& grid){
