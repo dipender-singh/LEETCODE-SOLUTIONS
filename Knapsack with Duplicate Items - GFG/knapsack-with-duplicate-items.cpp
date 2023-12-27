@@ -9,34 +9,34 @@ using namespace std;
 
 class Solution{
 public:
-
-    int helper(int i , int N , int W , int val[] , int wt[],vector<vector<int>>& dp){
-        if(i >= N){
-            return 0;
-        }
-        if(W == 0){
-            dp[i][W] = 0;
-            return 0;
-        }
-        if(dp[i][W]!=-1){
-            return dp[i][W];
-        }
-        int take = 0;
-        int nottake = 0;
-        if(wt[i] <= W){
-            take = val[i] + helper(i,N,W-wt[i],val,wt,dp);
-        }
-        nottake = helper(i+1,N,W,val,wt,dp);
-        dp[i][W] = max(take,nottake);
-        return max(take,nottake);
-    }
-
-
     int knapSack(int N, int W, int val[], int wt[])
     {
-        vector<vector<int>> dp(N,vector<int>(W+1,-1));
-        return helper(0,N,W,val,wt,dp);
+        //Dynamic Programming
+        vector<vector<int>> dp(N+1, vector<int>(W+1,0));
+        //When the Number of Elements are Zero then Max Profit will also be Zero.
+        //When the Weight of the KnapSack is Zero, then the Profit will also be ultimatley Zero. 
+        
+        for(int i = 0 ; i <= W ; i++){
+            dp[0][i] = 0;
+        }
+        for(int i = 0 ; i <= N ; i++){
+            dp[i][0] = 0;
+        }
+        
+        for(int i = 1 ; i <= N ; i++){
+            for(int j = 1 ; j <= W ; j++){
+                //Here also we will have to stimulate the Process of Pick and Not Pick. 
+                if(wt[i-1] <= j){
+                    //If the Weight of the Current Element is less than the Current Weight of the KnapSack
+                    dp[i][j] = max(dp[i-1][j], val[i-1]+dp[i][j-wt[i-1]]);
+            }
+            else{
+                dp[i][j] = dp[i-1][j];
+            }
+        }
     }
+    return dp[N][W];
+}
 };
 
 //{ Driver Code Starts.
