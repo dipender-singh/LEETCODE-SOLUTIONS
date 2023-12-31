@@ -5,39 +5,33 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-  
-  long long int helper(int i, int coins[], int N, int sum, vector<vector<long long int>>& dp){
-      if(i >= N || sum < 0){
-          return 0;
-      }
-      if(dp[i][sum]!=-1){
-          return dp[i][sum];
-      }
-      if(sum == 0){
-          dp[i][sum] = 1;
-          return 1;
-      }
-      long long int take = 0;
-      long long int nottake = 0;
-      if(coins[i]<=sum){
-          take = helper(i,coins,N,sum-coins[i],dp);
-      }
-      nottake = helper(i+1,coins,N,sum,dp);
-      dp[i][sum] = take+nottake;
-      return take+nottake;
-  }
-  
     long long int count(int coins[], int N, int sum) {
-        //We have to find the Number of Ways we get the Sum equal to the Target Sum, so for this 
-        //we will have to explore different Combinations of Coins.
+
+        // code here.
+        vector<vector<long long int>> dp(N+1,vector<long long int>(sum+1,0));
         
-        //And Exploration of different Combinations leads to Recursion.
-        
-        //Given an infinite supply of each type of coin. 
-        //And you can use any coin as many times as you want, relates to Unbounded Knapsack 
-        vector<vector<long long int>> dp(N,vector<long long int>(sum+1,-1));
-        return helper(0,coins,N,sum,dp);
-        
+        //Initial Values
+        for(int i = 0 ; i <= N ; i++){
+            //i represents the Number of Items
+            //When the sum is zero then there is only one way to not pick up any element
+            dp[i][0] = 1;
+        }
+        for(int i = 0 ; i <= sum ; i++){
+            //When the items are Zero then we can't form the Sum
+            dp[0][i] = 0;
+        }
+        dp[0][0] = 0;
+        for(int i = 1 ; i <= N ; i++){
+            for(int j = 1 ; j <=sum ; j++){
+                if(coins[i-1]<=j){
+                    dp[i][j] = dp[i-1][j] + dp[i][j-coins[i-1]];
+                }
+                else{
+                    dp[i][j] = dp[i-1][j];
+                }
+            }
+        }
+        return dp[N][sum];
     }
 };
 
