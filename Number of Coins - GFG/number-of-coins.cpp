@@ -6,34 +6,38 @@ using namespace std;
 class Solution{
 
 	public:
-	
-	long long int helper(int i, vector<int> &coins, int n, int sum, vector<vector<long long int>>& dp){
-	    //Base Case
-	    if(sum == 0){
-	        dp[i][sum] = 0;
-	        return 0;
-	    }
-	    if(i >= n){
-	        return INT_MAX;
-	    }
-	    if(dp[i][sum] != -1){
-	        return dp[i][sum];
-	    }
-	    long long int take = INT_MAX;
-	    long long int nottake = INT_MAX;
-	    if(coins[i] <= sum){
-	        take = 1 + helper(i,coins,n,sum-coins[i],dp);
-	    }
-	   nottake = helper(i+1,coins,n,sum,dp);
-	   dp[i][sum] = min(take,nottake);
-	   return min(take,nottake);
-	}
-	
-	int minCoins(vector<int> &coins, int M, int V) 
+	int minCoins(vector<int> &coins, int n, int sum) 
 	{ 
-	    // Your code goes here
-	    vector<vector<long long int>> dp(M,vector<long long int>(V+1,-1));
-	    int ans = (int)helper(0,coins,M,V,dp);
+	    //Your code goes here
+	    //Dynamic Programming
+	    vector<vector<long long int>> dp(n+1,vector<long long int>(sum+1,0));
+	    
+	    for(int i = 0 ; i <= n ; i++){
+	        dp[i][0] = 0;
+	    }
+	    for(int i = 0 ; i <= sum ; i++){
+	        dp[0][i] = INT_MAX;
+	    }
+	    for(int i = 1 ; i <= sum ; i++){
+	        if(i%coins[0] == 0){
+	            dp[1][i] = i/coins[0];
+	        }
+	        else{
+	            dp[1][i] = INT_MAX;
+	        }
+	    }
+	    //Try to think via making the DP Matrix to think waht we can fill in the DP[i][j]. 
+	    for(int i = 1 ; i <= n ; i++){
+	        for(int j = 1 ; j <= sum ; j++){
+	            if(coins[i-1] <= j){
+	                dp[i][j] = min(dp[i-1][j],1+dp[i][j-coins[i-1]]);
+	            }
+	            else{
+	                dp[i][j] = dp[i-1][j];
+	            }
+	        }
+	    }
+	    int ans = (int)dp[n][sum];
 	    if(ans == INT_MAX){
 	        return -1;
 	    }
