@@ -18,11 +18,13 @@ public:
         //after writing code do a bit of dry run of tc and check for edge cases as well
         //then after all this try to find the Time and Space complexity 
         //Got it 
-        lli low = 0, high = x;
+        if(x == 0 || x == 1) return x;
+        lli low = 1;
+        lli high = x;
         lli ans = -1;
         while(low <= high){
             lli mid = (low) + (high - low)/2;
-            if(mid * mid == x){
+            if(mid*mid == x){
                 return mid;
             }
             else if(check(mid,x) == 1){
@@ -33,9 +35,6 @@ public:
                 low = mid + 1;
             }
         }
-        if(ans*ans>x){
-            return ans-1;
-        }
-        return ans;
+        return ans-1;
     }
 };
